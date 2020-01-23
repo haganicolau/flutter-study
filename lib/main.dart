@@ -46,10 +46,10 @@ class ItemTransferencia extends StatelessWidget {
     // TODO: implement build
     return Card(
         child: ListTile(
-      leading: Icon(Icons.monetization_on),
-      title: Text(_transferencia.valor.toString()),
-      subtitle: Text(_transferencia.numeroConta.toString()),
-    ));
+          leading: Icon(Icons.monetization_on),
+          title: Text(_transferencia.valor.toString()),
+          subtitle: Text(_transferencia.numeroConta.toString()),
+        ));
   }
 }
 
@@ -61,6 +61,10 @@ class Transferencia {
 }
 
 class FormularioTransferencia extends StatelessWidget {
+
+  final TextEditingController _controladorCampoNumeroConta = TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -72,7 +76,7 @@ class FormularioTransferencia extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: TextField(
                 style: TextStyle(fontSize: 20.0),
                 decoration: InputDecoration(
@@ -82,7 +86,7 @@ class FormularioTransferencia extends StatelessWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: TextField(
                 style: TextStyle(fontSize: 20.0),
                 decoration: InputDecoration(
@@ -94,6 +98,16 @@ class FormularioTransferencia extends StatelessWidget {
             ),
             RaisedButton(
               child: Text("Confirmar"),
+              onPressed: () {
+                debugPrint("clicou em confirmar");
+                final int numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
+                final double valor = double.tryParse(_controladorCampoValor.text);
+
+                if(numeroConta != null && valor != null) {
+                  final transferenciaCriada = Transferencia(valor, numeroConta);
+                  debugPrint('$transferenciaCriada');
+                }
+              },
             )
           ],
         ));
